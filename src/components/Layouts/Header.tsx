@@ -253,7 +253,7 @@ const Header = () => {
                                 offset={[0, 8]}
                                 placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
                                 btnClassName="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60"
-                                button={<img className="w-5 h-5 object-cover rounded-full" src={`/assets/images/flags/${flag.toUpperCase()}.svg`} alt="flag" />}
+                                button={<img className="w-5 h-5 object-cover rounded-full" src={``} alt="flag" />}
                             >
                                 <ul className="!px-2 text-dark dark:text-white-dark grid grid-cols-2 gap-2 font-semibold dark:text-white-light/90 w-[280px]">
                                     {themeConfig.languageList.map((item: any) => {
@@ -268,7 +268,7 @@ const Header = () => {
                                                         setLocale(item.code);
                                                     }}
                                                 >
-                                                    <img src={`/assets/images/flags/${item.code.toUpperCase()}.svg`} alt="flag" className="w-5 h-5 object-cover rounded-full" />
+                                                    <img src={``} alt="flag" className="w-5 h-5 object-cover rounded-full" />
                                                     <span className="ltr:ml-3 rtl:mr-3">{item.name}</span>
                                                 </button>
                                             </li>

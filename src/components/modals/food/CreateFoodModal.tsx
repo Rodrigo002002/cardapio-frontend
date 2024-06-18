@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import { HFoodSave } from '../../hooks/food-hock';
-import { FoodInterface } from '../../types/food-interface';
+import { HFoodSave, HFoodUpdate } from '../../../hooks/food-hock';
 import { useTranslation } from 'react-i18next';
-import DynamicInput from '../form/inputs/dynamic-input';
+import DynamicInput from '../../form/inputs/dynamic-input';
+import { FoodInterface } from '../../../types/food-interface';
 
 interface ModalProps {
     closeModal(): void
@@ -21,15 +21,14 @@ const CreateFoodModal = ({closeModal}: ModalProps) => {
             price,
             image
         }
-
-        mutate((foodData))
+        mutate(foodData)
     }
 
     useEffect(() => {
-        if (!isSuccess) return;
-        closeModal();
+        if (isSuccess) {
+            closeModal();
+        }
     }, [isSuccess]);
-
     return (
         <div className="mb-5">
             <div className="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto">
@@ -37,7 +36,7 @@ const CreateFoodModal = ({closeModal}: ModalProps) => {
                     <div
                         className="panel border-0 p-0 rounded-lg overflow-hidden my-8 w-full max-w-lg text-black dark:text-white-dark">
                         <div className="flex bg-[#fbfbfb] dark:bg-[#121c2c] items-center justify-between px-5 py-3">
-                            <h2 className="text-2xl">Cadastro comida</h2>
+                            <h2 className="text-2xl">{'Cadastrar'}</h2>
                             <button className="text-white-dark hover:text-dark" onClick={closeModal}>Cancelar</button>
                         </div>
                         <div className="p-5">
@@ -47,6 +46,7 @@ const CreateFoodModal = ({closeModal}: ModalProps) => {
                                 <DynamicInput label={t('image')} value={image} isRequired={true} updateValue={setImage} />
 
                                 <div className='flex w-full mt-5 justify-end'>
+
                                     <button className="btn btn-primary" type="submit">
                                         {isPending ? 'Postando...' : 'Postar'}
                                     </button>

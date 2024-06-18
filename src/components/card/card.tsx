@@ -13,7 +13,11 @@ const Card = ({price, image, title}: CardProps) => {
                 </div>
                 <h5 className="text-[#3b3f5c] text-xl font-semibold mb-4 dark:text-white-light">{title}</h5>
                 <p className="text-white-dark">Valor: {price}</p>
-                <button type="button" className="btn btn-primary mt-6">Explore More</button>
+            </div>
+            <div className="bg-gray-50 w-full text-center">
+                <span>
+                    Clique para editar
+                </span>
             </div>
         </div>
     )
