@@ -1,39 +1,18 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { HFoodSave } from '../../../hooks/food-hock';
-import { useTranslation } from 'react-i18next';
-import DynamicInput from '../../form/inputs/dynamic-input';
-import { FoodInterface } from '../../../types/food-interface';
+import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import PriceInput from '../../form/inputs/price-input';
 import IconX from '../../Icon/IconX';
+import { useTranslation } from 'react-i18next';
+import IconExclamationMark from '../../Icon/IconExclamationMark';
 
 interface ModalProps {
     showModal: boolean,
+    deleteEvent(): void,
     closeModal(): void
 }
 
-const CreateFoodModal = ({closeModal, showModal}: ModalProps) => {
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState(0);
-    const [image, setImage] = useState("");
-    const {mutate, isSuccess, isPending} = HFoodSave();
+const DeleteModal = ({showModal, closeModal, deleteEvent}: ModalProps) => {
     const { t, i18n } = useTranslation();
 
-    const submit = () => {
-        const foodData: FoodInterface = {
-            id: null,
-            title,
-            price,
-            image
-        }
-        mutate(foodData)
-    }
-
-    useEffect(() => {
-        if (isSuccess) {
-            closeModal();
-        }
-    }, [isSuccess]);
     return (
         <Transition appear show={showModal} as={Fragment}>
             <Dialog as="div" open={showModal} onClose={closeModal}>
@@ -59,10 +38,11 @@ const CreateFoodModal = ({closeModal, showModal}: ModalProps) => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel as="div" className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8 text-black dark:text-white-dark">
+                            <Dialog.Panel as="div"
+                                          className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8 text-black dark:text-white-dark">
                                 <div
                                     className="flex bg-[#fbfbfb] dark:bg-[#121c2c] items-center justify-between px-5 py-3">
-                                    <h5 className="font-bold text-lg">{t('register')}</h5>
+                                    <h5 className="font-bold text-lg">{t('delete')}</h5>
                                     <button
                                         onClick={closeModal}
                                         type="button"
@@ -72,19 +52,21 @@ const CreateFoodModal = ({closeModal, showModal}: ModalProps) => {
                                     </button>
                                 </div>
                                 <div className="p-5">
-                                    <form onSubmit={submit} className="space-y-5">
-                                        <DynamicInput label={t('title')} value={title} isRequired={true}
-                                                      updateValue={setTitle} />
-                                        <PriceInput label={t('price')} value={price} isRequired={true} updateValue={setPrice} />
-                                        <DynamicInput label={t('image')} value={image} isRequired={true} updateValue={setImage} />
+                                    <label className="text-center text-white-dark">{t('messages.delete')}</label>
+                                    <div className="flex justify-center mt-5">
+                                        <IconExclamationMark
+                                            className="min-w-[150px] min-h-[150px] text-danger"
+                                        />
+                                    </div>
+                                </div>
 
-                                        <div className='flex w-full mt-5 justify-end'>
-
-                                            <button className="btn btn-primary" type="submit">
-                                                {isPending ? t('registering') : t('register')}
-                                            </button>
-                                        </div>
-                                    </form>
+                                <div className="flex w-full mt-5 justify-center space-x-4 mb-7">
+                                    <button className="btn btn-primary" onClick={closeModal}>
+                                        {t('cancel')}
+                                    </button>
+                                    <button className="btn btn-danger" onClick={deleteEvent}>
+                                        {t('delete')}
+                                    </button>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -95,4 +77,4 @@ const CreateFoodModal = ({closeModal, showModal}: ModalProps) => {
     )
 }
 
-export default CreateFoodModal
+export default DeleteModal

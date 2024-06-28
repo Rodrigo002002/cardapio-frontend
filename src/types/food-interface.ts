@@ -1,6 +1,8 @@
 export interface FoodInterface {
-    id?: number | null,
+    id: number | null,
     title: string,
-    image: string
+    image: string,
     price: number
 }
+
+

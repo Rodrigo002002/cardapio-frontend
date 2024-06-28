@@ -1,0 +1,19 @@
+{
+    "cancel": "Cancelar",
+    "delete": "Deletar",
+    "edit": "Editar",
+    "editing": "Editando",
+    "editClick": "Clique para editar",
+    "image": "Imagem",
+    "menu": "Cardápio",
+    "register": "Cadastrar",
+    "registering": "Cadastrando...",
+    "price": "Preço",
+    "save": "Salvar",
+    "saving": "Salvando...",
+    "title": "Título",
+    "value": "Valor",
+    "messages": {
+        "delete": "Quer mesmo deletar?"
+    }
+}

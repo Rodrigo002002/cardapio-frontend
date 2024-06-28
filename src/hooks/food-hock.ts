@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SFoodDelete, SFoodFindAll, SFoodFindById, SFoodSave, SFoodUpdate } from '../services/food-service';
 import { FoodInterface } from '../types/food-interface';
 
-export function HGetAllFood() {
+export async function HGetAllFood() {
     const query = useQuery({
         queryFn: SFoodFindAll,
         queryKey: ['food-data'],
@@ -36,6 +36,7 @@ export function HFoodSave() {
         mutationFn: SFoodSave,
         retry: 2,
         onSuccess: () => {
+            // @ts-ignore
             queryClient.invalidateQueries(['food-data']);
         }
     });
@@ -49,6 +50,7 @@ export function HFoodUpdate(id: number, data: FoodInterface) {
             await SFoodUpdate(id, data);
         },
         onSuccess: () => {
+            // @ts-ignore
             queryClient.invalidateQueries(['food-data']);
         }
     });
@@ -60,6 +62,7 @@ export function HFoodDelete(id: number) {
     return useMutation({
         mutationFn: () => SFoodDelete(id),
         onSuccess: () => {
+            // @ts-ignore
             queryClient.invalidateQueries(['food-data']);
         },
         retry: 2
